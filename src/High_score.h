@@ -10,7 +10,7 @@
 
 #ifndef HIGH_SCORE_H_
 #define HIGH_SCORE_H_
-#define SAVE_FILE "../tetris/save"
+//#define SAVE_FILE "../tetris/save"
 #define ARRAY_LENGTH 10
 #define BUFF_SIZE 11
 

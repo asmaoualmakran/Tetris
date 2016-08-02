@@ -18,7 +18,7 @@ struct High_score init_high_score() {           // als de file bestaat van de fi
 	int i;
 	printf("High_score initiated, \n");
 	FILE *fp;
-	fp = fopen ("../tetris/aux_files/saved_scores", "r");
+	fp = fopen ("../Main/aux_files/saved_scores", "r");
 	int len = ftell(fp);   									// gebruiken om te kijken of de file leeg is (anders raar gedrag)
 
 	if (fp == NULL || len == 0) {
@@ -29,7 +29,7 @@ struct High_score init_high_score() {           // als de file bestaat van de fi
 
 		printf("out of loop, \n");
 	} else {
-	load_high_scores(&H, "../tetris/aux_files/saved_scores");
+	load_high_scores(&H, "../Main/aux_files/saved_scores");
 	printf("high_scores loaded, \n");
 };
 
