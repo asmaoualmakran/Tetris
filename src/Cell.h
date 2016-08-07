@@ -8,7 +8,8 @@
 #ifndef BLOKS_H_
 #define BLOKS_H_
 
-
+#define CELL_WIDTH 10
+#define CELL_HEIGHT 10
 
 enum State{
 	empty,
@@ -17,18 +18,17 @@ enum State{
 };
 
 enum Colour{
-	black, 		// 0
-	yellow, 	// 1
-	l_blue, 	// 2
-	red,		// 3
-	green, 		// 4
-	orange,		// 5
-	pink, 		// 6
-	purple,		// 7
-	d_green,	// 8
-	d_red,		// 9
-	d_blue 		// 10
-
+	red, 		// 0
+	l_blue, 	// 1
+	yellow,		// 2
+	green, 		// 3
+	orange,		// 4
+	pink, 		// 5
+	purple,		// 6
+	d_green,	// 7
+	d_red,		// 8
+	d_blue,     // 9
+	black		//10
 };
 
 struct Cell{

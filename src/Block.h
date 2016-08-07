@@ -11,7 +11,8 @@
 
 #include "Block_data.h"
 #include "Cell.h"
-
+#define START_X 10
+#define START_Y 10
 
 
 enum Shape{

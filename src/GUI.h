@@ -7,15 +7,19 @@
 
 #ifndef GUI_H_
 #define GUI_H_
+#include "SDL/SDL.h"
+#include "Grid.h"
+#include "Cell.h"
+#include"Game.h"
 
-#define WINDOW_WIDTH 20
-#define WINDOW_HIGHT 20
 
-void display_menu();
-void draw_field();
-void make_window();
-void update_window();
-void clear_window();
-void free_window(); //pointer van venster dealloceren, (memoryleak in dit deel)
+void initialize_gui();
+
+/*
+ * Tekent het huidige veld in het venster. Deze functie moeten jullie dus zelf implementeren.
+ */
+void draw_field(void);
+
+void free_screen();
 
 #endif /* GUI_H_ */

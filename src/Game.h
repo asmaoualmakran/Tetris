@@ -16,6 +16,7 @@
 #include "Grid.h"
 #include "Block.h"
 #include "Hold.h"
+#include "GUI.h"
 
 typedef int bool;
 enum { false, true };

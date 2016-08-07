@@ -13,14 +13,13 @@
 
 struct Hold{
 	struct Block hold_block;
-	int matrix[5][5];
+	int hold_matrix[5][5];
 };
 
 
-struct Hold init_hold(int i, int ***arr, int **matrix);
-void load_new_block(struct Hold *hold, int ***arr);
-void copy_block(struct Hold *hold,int i, int ***arr);
-int **get_hold(struct Hold *hold);
-
-
+struct Hold init_hold();
+void set_hold_matrix(struct Hold *hold, int x);
+void load_new_block(struct Hold *hold);
+void print_hold(struct Hold *x);
+struct Block *load_from_hold(struct Hold *hold, struct Block *block);
 #endif /* HOLD_H_ */

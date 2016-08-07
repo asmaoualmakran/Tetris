@@ -17,17 +17,17 @@ struct Cell ***new_grid() {
 	int i;
 
 	for (i = 0; i < GRID_WIDTH; i++) {
-		struct Cell **hight_arr = malloc(GRID_HIGHT * (sizeof(struct Cell*)));
+		struct Cell **height_arr = malloc(GRID_HEIGHT * (sizeof(struct Cell*)));
 
 		int j;
-		for (j = 0; j < GRID_HIGHT; j++) {
+		for (j = 0; j < GRID_HEIGHT; j++) {
 
 			struct Cell *cell = malloc(sizeof(struct Cell));
 			*cell = init_cell(black, empty, i ,j);
-			hight_arr[j] = cell;
+			height_arr[j] = cell;
 		}
 
-		width_arr[i] = hight_arr;
+		width_arr[i] = height_arr;
 	}
 
 	return width_arr;
@@ -98,7 +98,7 @@ void free_grid(struct Cell ***grid) {
 
 	for (i = GRID_WIDTH; i >= 0; i--) {
 
-		for (j = GRID_HIGHT; j >= 0; i--) {
+		for (j = GRID_HEIGHT; j >= 0; i--) {
 			free(grid[i][j]);
 		}
 		free(grid[i]);
@@ -116,7 +116,7 @@ struct Cell *get_grid_cell(struct Cell ***grid, int x, int y) {
 void print_grid(struct Cell*** grid) {
 	int i, j = 0;
 	for (i = 0; i < GRID_WIDTH; i++) {
-		for (j = 0; j < GRID_HIGHT; j++) {
+		for (j = 0; j < GRID_HEIGHT; j++) {
 			struct Cell *cell = grid[i][j];
 			print_cell(cell);
 		}

@@ -11,7 +11,7 @@
 
 #include "Cell.h"
 
-#define GRID_HIGHT 22
+#define GRID_HEIGHT 22
 #define GRID_WIDTH 10
 
 struct Cell*** new_grid();

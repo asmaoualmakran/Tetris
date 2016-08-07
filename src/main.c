@@ -12,8 +12,8 @@
 
 
 
-int main(void) {
 
+int main(void) {
 
 	struct Cell ***grid = new_grid();
 	//print_grid(grid);
@@ -21,33 +21,26 @@ int main(void) {
 	//print_cell(c);
 	struct Block block = init_block(1,0,1,1);
 	print_block(&block);
-
+	printf("----------------1\n");
+	struct Hold hold = init_hold();
+	print_hold(&hold);
+	printf("------------------2\n");
+	load_from_hold(&hold, &block);
+	print_block(&block);
+	printf("%d, %d\n", hold.hold_block.shape, hold.hold_block.colour);
+	printf("---------------------3\n");
+	print_hold(&hold);
+	//init_gui();
 	//gameloop();
+	initialize_gui();
 
 	puts("!!!Hello World!!!"); // prints !!!Hello World!!!
-/*	int i, j, k;
-	for(i = 0; i < 10; i++){
-		for(j = 0; j < 5; j++){
-			for(k = 0; k < 5; k++){
-				printf("%d", blocks[i][j][k]);
-			}
-			printf("\n");
-		}
-		printf("\n-----\n");
-	}
 
-	printf("Z\n");
-
-	int z = blocks[4];
-	for(j = 0; j < 5; j++){
-				for(k = 0; k < 5; k++){
-					printf("%d", z[j][k]);
-				}
-				printf("\n");
-			}*/
 
 	return EXIT_SUCCESS;
 };
+
+
 
 
 
