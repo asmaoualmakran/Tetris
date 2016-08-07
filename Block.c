@@ -68,6 +68,7 @@ struct Block init_block(enum Colour c, enum Shape s, int x, int y){
 	return block;
 };
 
+
 void print_block(struct Block *x){
 	int i;
 	int j;

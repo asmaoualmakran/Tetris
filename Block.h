@@ -11,7 +11,6 @@
 
 #include "Block_data.h"
 #include "Cell.h"
-
 #define START_X 10
 #define START_Y 10
 
@@ -55,7 +54,6 @@ void set_block_x_piv(struct Block *x, int c);
 void set_block_y_piv(struct Block *x, int c);
 void set_block_matrix(struct Block *x);
 struct Block init_block(enum Colour c, enum Shape s, int x, int y);
-struct Block *load_from_hold(struct Hold *hold);
 void move_block (struct Block *x, enum Direction dir);
 void rotate_block(struct Block *x, int rotation_matrix);
 int test_boundaries(struct Block *x);

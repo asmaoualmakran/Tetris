@@ -20,4 +20,6 @@ struct Hold{
 struct Hold init_hold();
 void set_hold_matrix(struct Hold *hold, int x);
 void load_new_block(struct Hold *hold);
+void print_hold(struct Hold *x);
+struct Block *load_from_hold(struct Hold *hold, struct Block *block);
 #endif /* HOLD_H_ */
