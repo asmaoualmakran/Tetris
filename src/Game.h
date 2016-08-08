@@ -32,7 +32,7 @@ struct Game{
 };
 
 
-void gameloop(struct Game game);
+void gameloop();
 
 struct Block get_current_block(struct Game *game);
 void set_current_block(struct Game *game, struct Hold *hold);

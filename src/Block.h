@@ -11,6 +11,7 @@
 
 #include "Block_data.h"
 #include "Cell.h"
+#include "Grid.h"
 #define START_X 10
 #define START_Y 10
 
@@ -32,7 +33,8 @@ enum Shape{
 enum Direction{
 	left,
 	right,
-	down
+	down,
+	rotate
 };
 
 struct Block{
@@ -55,8 +57,10 @@ void set_block_y_piv(struct Block *x, int c);
 void set_block_matrix(struct Block *x);
 struct Block init_block(enum Colour c, enum Shape s, int x, int y);
 void move_block (struct Block *x, enum Direction dir);
-void rotate_block(struct Block *x, int rotation_matrix);
-int test_boundaries(struct Block *x);
+int divide(int i);
+void rotate_block(struct Block *x);
+void set_correct_vals(struct Block *x);
+int test_boundaries(struct Block *x, struct Cell ***grid,enum Direction dir);
 
 void print_block(struct Block *x);
 

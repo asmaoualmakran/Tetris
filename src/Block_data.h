@@ -11,7 +11,7 @@
 #define BLOCK_ARRAY blocks
 #define NUMB_SHAPES 10
 #define MATRIX_WIDTH 5
-#define MATRIX_HIGHT 5
+#define MATRIX_HEIGHT 5
 
 static int blocks [10] [5] [5] = {
 

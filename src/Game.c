@@ -68,8 +68,8 @@ void set_current_block(struct Game *game, struct Hold *hold){
 	game->current_block = hold->hold_block; // get_hold(*hold) Return block from hold, generate new block and put in hold
 };
 
-void game_loop(struct Game game){
-//set_current_block
+void game_loop(){
+	struct Game game = new_game();
 
 
 	while(game.game_over == false && game.paused == false){
@@ -124,6 +124,7 @@ void game_loop(struct Game game){
 		 * 		save_game(game)
 		 *
 		 */
+
 	sleep(0,500);
 };
 

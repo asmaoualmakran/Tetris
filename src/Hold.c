@@ -21,7 +21,7 @@ struct Hold init_hold(){
 void set_hold_matrix(struct Hold *hold,int x){
 	int i;
 		int j;
-		for(i = 0; i < MATRIX_HIGHT; i++){
+		for(i = 0; i < MATRIX_HEIGHT; i++){
 			for(j = 0; j < MATRIX_WIDTH; j++){
 				hold->hold_matrix[i][j] = blocks[x][i][j];
 				hold->hold_block.rotation_matrix[i][j] = blocks[x][i][j];
@@ -40,7 +40,7 @@ struct Block *load_from_hold(struct Hold *hold, struct Block *block){
 	block->y_piv = START_Y;
 	int i;
 			int j;
-			for(i = 0; i < MATRIX_HIGHT; i++){
+			for(i = 0; i < MATRIX_HEIGHT; i++){
 				for(j = 0; j < MATRIX_WIDTH; j++){
 					block->rotation_matrix[i][j] = hold->hold_block.rotation_matrix[i][j];
 				}
@@ -52,7 +52,7 @@ struct Block *load_from_hold(struct Hold *hold, struct Block *block){
 void print_hold(struct Hold *x){
 	int i;
 	int j;
-	for(i = 0; i < MATRIX_HIGHT; i++){
+	for(i = 0; i < MATRIX_HEIGHT; i++){
 		for(j = 0; j < MATRIX_WIDTH; j++){
 			int c = x->hold_matrix[i][j];
 			printf("%d", c);
