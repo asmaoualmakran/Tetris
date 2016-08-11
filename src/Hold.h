@@ -13,7 +13,7 @@
 
 struct Hold{
 	struct Block hold_block;
-	int hold_matrix[5][5];
+	int hold_matrix[MATRIX_HEIGHT][MATRIX_WIDTH];
 };
 
 

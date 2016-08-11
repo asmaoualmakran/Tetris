@@ -10,7 +10,7 @@
 
 struct Hold init_hold(){
 	struct Hold hold;
-	int i = rand()% 10;
+	int i = rand()% NUMB_SHAPES;
 	printf("rand %d \n", i);
 	init_block(i, i, START_X, START_Y);
 	printf("%d\n", i);
