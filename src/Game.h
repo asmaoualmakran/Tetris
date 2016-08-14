@@ -27,12 +27,13 @@ struct Game{
 	struct Cell ***grid;
 	bool game_over;
 	bool paused;
+	bool window_open;
 	struct Block current_block;
 	//hold
 };
 
 
-void gameloop();
+void game_func(struct Game *game);
 
 struct Block get_current_block(struct Game *game);
 void set_current_block(struct Game *game, struct Hold *hold);

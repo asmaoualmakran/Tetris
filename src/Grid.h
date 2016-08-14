@@ -10,6 +10,8 @@
 
 
 #include "Cell.h"
+#include "Block.h"
+
 
 #define GRID_HEIGHT 22
 #define GRID_WIDTH 10
@@ -23,6 +25,7 @@ void print_grid(struct Cell*** grid);
 void clear_line(struct Cell*** grid, int i);
 void move_line (struct Cell*** grid);
 void test_full_line(struct Cell*** grid);
+void put_block(struct Cell ***grid, struct Block *x);
 
 #endif /* GRID_H_ */
 

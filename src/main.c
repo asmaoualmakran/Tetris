@@ -50,7 +50,20 @@ int main(void) {
 
 	//set_direction(right);
 	//set_direction(down);
-	collision(&block, grid, left);
+	// klopt dat?
+	//
+//	printf("%d", collision(&block, grid, left));
+	/*
+	 * reageert compleet niet
+	 */
+	struct Game game = new_game();
+	init_window();
+	run_window(&game);
+	  // close_window();
+	//read_input();
+	printf("done");
+
+	//close_window(&game);
 	return 0;
 };
 /*
@@ -64,9 +77,10 @@ int main(void) {
  * TODO: pauzeren van een spel
  * TODO: clearline -> in Grid.c IN PROGRESS
  * TODO: rotatie DONE
- * TODO: start locaties van de blokjes bepalen, struct
+ * TODO: start locaties van de blokjes bepalen -> bepaal de hoogtte van de pivot, dat is dan ook de hoogtte van de blokje breette -> 1/2 breette speelveld
+ * TODO: Collision test IN PROGRESS
+ * TODO: key poll in de main game loop
  */
-
-
+// nee nee, wou hier bij iets openen het klopt niet die reslutaten piv en loc wel maar de grid check niet die moet 2,1 checken das links nu kijkt die rechts beneden
 
 

@@ -13,6 +13,7 @@
 //#define SAVE_FILE "../tetris/save"
 #define ARRAY_LENGTH 10
 #define BUFF_SIZE 11
+static char* SAVE_FILE = "../Tetris/aux_files/saved_scores";
 
 struct High_score{
 	int array[ARRAY_LENGTH];

@@ -27,15 +27,19 @@ struct Game new_game(){
 	struct Game game;
 
 	game.score = init_score_board();
+	printf("init_score_board works\n");
 	game.high_score = init_high_score();
+	printf("init_high_score works\n");
 	game.grid = new_grid();
+	printf("new_grid works\n");
 	game.game_over = false;
 	game.paused = false;
-
+	game.window_open = true;
+	game.current_block = init_block(5,5,GRID_WIDTH/2, 2);
 	return game;
 };
 
-
+/*
 static void sleep(int nr_of_seconds, int nr_of_milliseconds) {
 	struct timespec *sleep_time = malloc(sizeof(struct timespec));
 	sleep_time->tv_sec = nr_of_seconds;
@@ -43,6 +47,8 @@ static void sleep(int nr_of_seconds, int nr_of_milliseconds) {
 	struct timespec *remainder_sleep_time = malloc(sizeof(struct timespec));
 	nanosleep(sleep_time, remainder_sleep_time);
 }
+
+*/
 
 /*
 struct Game load_game(const char file_path){
@@ -68,11 +74,25 @@ void set_current_block(struct Game *game, struct Hold *hold){
 	game->current_block = hold->hold_block; // get_hold(*hold) Return block from hold, generate new block and put in hold
 };
 
-void game_loop(){
-	struct Game game = new_game();
+void game_func(struct Game* game){ // volg je nog? ja ik snap het , vergeet de h file niet, doe jij maar verder hoor :P
+	//wat wou je nog doen? moet ik al terug eens runnen? ja doe maar
+	//struct Game game = new_game();
+	//SDL_Event event;
+
+	printf("game_running\n");
+	//struct Cell ***temp = new_grid();
+	//temp[1][1];
+	//printf("next\n");
+	move_block(&game->current_block, game->grid, down);
+	clear_grid();
+	put_block(game->grid,&game->current_block);
+	draw_grid(game->grid);
 
 
-	while(game.game_over == false && game.paused == false){
+
+
+	//SDL_Flip(window); // waarom werkt die static ni?
+	//draw_grid(temp);
 
 		/*
 		 * if (current_bottom)
@@ -97,7 +117,7 @@ void game_loop(){
 		//display field				-- nieuwe toestand uittekenen, speelveld wordt geiniteerd bij het initeren van het spel
 		//display_score();          -- nieuwe score tonen, score board wordt geinitieerd bij het maken van het spel
 		//sleep();					-- zorgen dat het blokje niet te snel valt, loop te snel wordt uitgevoerd
-	}
+	// ----------------------------------------------------------------------------------------------------------------------
 		/*
 		 * if(game.game_over == true)  game over waneer de blokjes de bovenkant van het scherm raken
 		 * game over displayen
@@ -125,6 +145,6 @@ void game_loop(){
 		 *
 		 */
 
-	sleep(0,500);
+	//sleep(0,500);
 };
 

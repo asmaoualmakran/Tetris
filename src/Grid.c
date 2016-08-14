@@ -97,9 +97,9 @@ void free_grid(struct Cell ***grid) {
 	int i;
 	int j;
 
-	for (i = GRID_WIDTH; i >= 0; i--) {
+	for (i = GRID_HEIGHT; i >= 0; i--) {
 
-		for (j = GRID_HEIGHT; j >= 0; i--) {
+		for (j = GRID_WIDTH; j >= 0; j--) {
 			free(grid[i][j]);
 		}
 		free(grid[i]);
@@ -116,8 +116,8 @@ struct Cell *get_grid_cell(struct Cell ***grid, int i, int j) {
 
 void print_grid(struct Cell*** grid) {
 	int i, j = 0;
-	for (i = 0; i < GRID_WIDTH; i++) {
-		for (j = 0; j < GRID_HEIGHT; j++) {
+	for (i = 0; i < GRID_HEIGHT; i++) {
+		for (j = 0; j < GRID_WIDTH; j++) {
 			struct Cell *cell = grid[i][j];
 			print_cell(cell);
 		}
@@ -183,3 +183,33 @@ void test_full_line(struct Cell*** grid) {
 }
 ;
 */
+
+void put_block(struct Cell ***grid, struct Block *x){
+
+	//int **matrix = x->rotation_matrix;
+	int *piv_coord = locate_piv_matrix(x);
+	int piv_x = piv_coord[1];
+	int piv_y = piv_coord[0];
+
+	int i;
+	int j;
+	for(i = 0; i < MATRIX_HEIGHT; i++){
+		for(j = 0; j < MATRIX_WIDTH; j++){
+			if(x->rotation_matrix[i][j] != 0){
+
+			int diff_i = piv_y - i ;
+			int diff_j = piv_x - j;
+
+			int grid_loc_i = piv_y - diff_i;
+			int grid_loc_j = piv_x - diff_j;
+
+			struct Cell *cell = get_grid_cell(grid,grid_loc_i,grid_loc_j);
+			cell->state = filled;
+			cell->colour = x->colour;
+			print_cell(cell);
+
+			}
+		}
+	}
+};
+

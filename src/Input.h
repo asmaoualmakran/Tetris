@@ -7,12 +7,11 @@
 
 #ifndef INPUT_H_
 #define INPUT_H_
-#include <stdio.h>
-#include <stdlib.h>
+#include "SDL/SDL.h"
 /*
  * Gebruik sdl lib om user input in te lezen -> events zie documentatie sdl
  */
 
-void read_input();
+void read_input(SDL_Event *event);
 
 #endif /* INPUT_H_ */

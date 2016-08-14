@@ -12,6 +12,7 @@
 struct Score init_score_board(){
 	struct Score S;
 	S.current_score = 0;
+	printf("score initiated \n");
 	return S;
 };
 
