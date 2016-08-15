@@ -15,49 +15,8 @@
 
 int main(void) {
 
-	struct Cell ***grid = new_grid();
-	//print_grid(grid);
-	struct Cell *c = get_grid_cell(grid, 0, 10);
-	//print_cell(c);
-	struct Block block = init_block(5,5,5,5);
-/*	print_block(&block);
-	printf("----------------1\n");
-	/*struct Hold hold = init_hold();
-	print_hold(&hold);
-	printf("------------------2\n");
-	load_from_hold(&hold, &block);
-	print_block(&block);
-	printf("%d, %d\n", hold.hold_block.shape, hold.hold_block.colour);
-	printf("---------------------3\n");
-	print_hold(&hold);
-	//init_gui();
-	//gameloop();*/
-/*	rotate_block(&block);
-	print_block(&block);
-	printf("--------------------------2\n");
-	rotate_block(&block);
-	print_block(&block);
-	printf("--------------------------3\n");
-	rotate_block(&block);
-	print_block(&block);
-//	puts("!!!Hello World!!!"); // prints !!!Hello World!!!
-//	get_block_matrix(&block);
-*/
-	//int *piv = locate_piv_matrix(&block);
-	//printf("piv: %d, %d \n", piv[0], piv[1]);
-	//printf("x");
-	//set_direction(left);
 
-	//set_direction(right);
-	//set_direction(down);
-	// klopt dat?
-	//
-//	printf("%d", collision(&block, grid, left));
-	/*
-	 * reageert compleet niet
-	 */
 	struct Game game = new_game();
-	printf("main game piv_x: %d, piv_y: %d \n", game.current_block.x_piv, game.current_block.y_piv);
 	init_window();
 	run_window(&game);
 	  // close_window();

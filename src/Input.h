@@ -8,6 +8,7 @@
 #ifndef INPUT_H_
 #define INPUT_H_
 #include "SDL/SDL.h"
+#include "Game.h"
 /*
  * Gebruik sdl lib om user input in te lezen -> events zie documentatie sdl
  */

@@ -36,7 +36,7 @@ struct Game{
 void game_func(struct Game *game);
 
 struct Block get_current_block(struct Game *game);
-void set_current_block(struct Game *game, struct Hold *hold);
+void set_current_block(struct Game *game);
 struct Game new_game();
 struct Game load_game(const char file_path);
 struct Game init_game(); //als load file niet bestaat een volledig nieuwe game starten
@@ -47,5 +47,6 @@ void stop_game(struct Game *game);
 // geen restart game, hetzelfde als new_game
 void game_over(struct Game *game, enum Direction d);
 int test_full_line(struct Game *game);
+int set_hold_current_block(struct Game *game);
 
 #endif /* GAME_H_ */

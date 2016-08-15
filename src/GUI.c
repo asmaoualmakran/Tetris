@@ -19,7 +19,8 @@
 const int WINDOW_WIDTH = (CELL_WIDTH * GRID_WIDTH) + EXTRA_WIDTH;
 const int WINDOW_HEIGHT = (CELL_HEIGHT * GRID_HEIGHT) + EXTRA_HEIGHT;
 const char* WINDOW_TITLE = "TETRIS";
-
+const int HOLD_X = (CELL_WIDTH * GRID_WIDTH) + (EXTRA_WIDTH /2);
+const int HOLD_Y =	CELL_HEIGHT * GRID_HEIGHT;
 
 
 static SDL_Surface* window = NULL;
@@ -61,7 +62,7 @@ void run_window(struct Game *game){ // pointer to game
 			game->window_open = false;
 		}
 
-		if (previous != SDL_GetTicks() && (SDL_GetTicks() % 30) == 0){
+		if (previous != SDL_GetTicks() && (SDL_GetTicks() % 1000) == 0){
 			printf("%d\n", SDL_GetTicks());
 			previous = SDL_GetTicks();
 			game_func(game);
@@ -80,7 +81,7 @@ void run_window(struct Game *game){ // pointer to game
 			// ok ik begrijp het
 			/// /b drank voor mij ;)  tot zo en graag gedaan :*
 			// tot zo mijn held :*
-			read_input(&event);
+			read_input(&event,game);
 
 		}
 	}
@@ -88,7 +89,7 @@ void run_window(struct Game *game){ // pointer to game
 
 };
 
-int *get_SDL_colour(struct Cell *cell){
+int *get_SDL_colour(struct Cell *cell, struct Hold *hold){
 	int colour = cell->colour;
 	int color_code[3];
 	switch(colour){
@@ -154,41 +155,54 @@ int *get_SDL_colour(struct Cell *cell){
 				color_code[2] = 250;
 			break;
 	default:
-			color_code[0] = 0;
-			color_code[1] = 0;
-			color_code[2] = 0;
+			color_code[0] = 7;
+			color_code[1] = 12;
+			color_code[2] = 250;
 	}
 	return color_code;
 }
 
+void draw_hold(struct Hold *hold){
+	int width;
+	int height;
+	for(height = 0; height < MATRIX_HEIGHT; height++){
+		for(width = 0; width < MATRIX_WIDTH; width ++){
+			if(hold->hold_matrix[width][height] != 0){
+
+			}
+		}
+	}
+
+};
 
 void draw_grid(struct Cell ***grid){
+
 	int i;
 	int j;
 
 	for(i = 0; i < GRID_HEIGHT; i++){
 		for(j = 0; j < GRID_WIDTH; j++){
-		//	printf("(%d; %d)\n", i, j);
 			struct Cell *cell = get_grid_cell(grid,j,i);
+			if (cell->state != empty){
 			int *colour = get_SDL_colour(cell);
 			int colour_r = colour[0];
 			int colour_g = colour[1];
 			int colour_b = colour[2];
-		//	printf("r = %d, g = %d, b = %d \n",colour_r,colour_g,colour_b);
 			SDL_Rect rect;
-			rect.x = (j * CELL_WIDTH) ;
+			rect.x = j * CELL_WIDTH ;
 			rect.y = i * CELL_HEIGHT;
 			rect.h = CELL_HEIGHT;
 			rect.w = CELL_WIDTH;
 			SDL_FillRect(window, &rect,SDL_MapRGB(window->format,colour_r,colour_g,colour_b));
+			}
 		}
 	}
 	SDL_Flip(window);
 };
 
 void clear_grid(){
-	SDL_FillRect(window, NULL, 0x00000000);
-	SDL_Flip(window);
+	SDL_FillRect(window, NULL, 0x0000);
+	//SDL_Flip(window);
 
 };
 
@@ -196,4 +210,5 @@ void close_window(){
 	SDL_FreeSurface(window);  //pointer naar de surface opruimen
 	SDL_Quit();				  // SDL afsluiten
 };
+
 

@@ -8,7 +8,7 @@
 #include"Input.h"
 
 
-read_input(SDL_Event *event){
+read_input(SDL_Event *event, struct Game *game){
  // uw event is een POINTER
 	SDL_PollEvent(event);
 	SDLKey key_pressed = event->key.keysym.sym;
@@ -16,14 +16,17 @@ read_input(SDL_Event *event){
 	case SDL_KEYDOWN:
 		switch(key_pressed){
 		case SDLK_UP:
+			rotate_block(&game->current_block);
 			printf("key up is pressed \n");
 			break;
 
 		case SDLK_LEFT:
+			move_block(&game->current_block, game->grid, left);
 			printf("key left is pressed \n");
 			break;
 
 		case SDLK_RIGHT:
+			move_block(&game->current_block, game->grid, right);
 			printf("key right is pressed \n");
 			break;
 

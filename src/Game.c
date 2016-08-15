@@ -27,29 +27,17 @@ struct Game new_game(){
 	struct Game game;
 
 	game.score = init_score_board();
-	printf("init_score_board works\n");
 	game.high_score = init_high_score();
-	printf("init_high_score works\n");
-	game.grid = new_grid();
-	printf("new_grid works\n");
 	game.game_over = false;
 	game.paused = false;
 	game.window_open = true;
-	game.current_block = init_block(6,6,5, 2);
-	printf("game x: %d game y: %d",game.current_block.x_piv, game.current_block.y_piv);
+	game.current_block = init_block(6);
+	game.hold = init_hold();
+	game.grid = new_grid();
 	return game;
 };
 
-/*
-static void sleep(int nr_of_seconds, int nr_of_milliseconds) {
-	struct timespec *sleep_time = malloc(sizeof(struct timespec));
-	sleep_time->tv_sec = nr_of_seconds;
-	sleep_time->tv_nsec = nr_of_milliseconds * 1000 * 1000;
-	struct timespec *remainder_sleep_time = malloc(sizeof(struct timespec));
-	nanosleep(sleep_time, remainder_sleep_time);
-}
 
-*/
 
 /*
 struct Game load_game(const char file_path){
@@ -80,25 +68,36 @@ struct Block get_current_block(struct Game *game){
 	return current;
 };
 
-void set_current_block(struct Game *game, struct Hold *hold){
-	game->current_block = hold->hold_block; // get_hold(*hold) Return block from hold, generate new block and put in hold
+void set_current_block(struct Game *game){
+	load_from_hold(&game->hold,&game->current_block); //block uit de hold in de current steken
+	int i = pick_random_block();
+	set_hold_matrix(&game->hold,i); // nieuwe block in hold laden
 };
 
+
+int set_hold_current_block(struct Game *game){
+	if(collision(&game->current_block,game->grid,down) == 1){ //testen of het nog naar beneden kan
+		set_current_block(game);
+		return 1;
+	}
+	return 0;
+};
+
+
 int test_full_line(struct Game *game){
-	printf("start test \n");
+//	printf("start test \n");
 	struct Cell ***grid = game->grid;
 	struct Block block = game->current_block;
 	//int **matrix[MATRIX_WIDTH][MATRIX_HEIGHT] = block.rotation_matrix;
 
 	int piv_x = block.x_piv; //get_block_x_piv(block);
 	int piv_y = block.y_piv;//get_block_y_piv(block);
-	printf("piv_x: %d piv_y: %d\n", piv_x, piv_y); // das de eerste en die van loc staat er onder net waar ze worden gemaakt
+//	printf("piv_x: %d piv_y: %d\n", piv_x, piv_y); // das de eerste en die van loc staat er onder net waar ze worden gemaakt
 	//int piv_x = game->current_block.x_piv;
 	//	int piv_y = game->current_block.y_piv;
 
 
 	int *piv_coord = locate_piv_matrix(&block);
-		//int *piv_coord = locate_piv_matrix(game->current_block);
 	int piv_coord_x = piv_coord[0];
 	int piv_coord_y = piv_coord[1];
 
@@ -111,21 +110,20 @@ int test_full_line(struct Game *game){
 
 				int diff_y = piv_coord_y - i ;
 				int diff_x = piv_coord_x - j;
-				printf("diff_y: %d  diff_x %d \n", diff_y, diff_x);
+//				printf("diff_y: %d  diff_x %d \n", diff_y, diff_x);
 				int grid_loc_y = piv_y - diff_y;
 				int grid_loc_x = piv_x - diff_x;
-				printf("grid_loc_y: %d  grid_loc_x: %d \n", grid_loc_y, grid_loc_x);
+//				printf("grid_loc_y: %d  grid_loc_x: %d \n", grid_loc_y, grid_loc_x);
 				int current_row = grid_loc_y;
 				int current_x = 0;
-				printf("current_row: %d current_x: %d \n", current_row, current_x);
+//				printf("current_row: %d current_x: %d \n", current_row, current_x);
 				struct Cell *current_cell = get_grid_cell(grid,current_x,current_row);
-			//	struct Cell *current_cell = get_grid_cell(game->grid,current_x,current_row);
 				enum State current_state = get_state_cell(current_cell);
 
 				while(current_x < GRID_WIDTH){
 					if(current_state == empty){
 						current_x = 0;
-						printf("no line to clear current_x:%d, current_row:%d \n",current_x, current_row);
+//						printf("no line to clear current_x:%d, current_row:%d \n",current_x, current_row);
 						break;
 						/*
 						 * kom je een lege cell tegen dan stop je de while
@@ -134,17 +132,17 @@ int test_full_line(struct Game *game){
 					else if(current_x == (GRID_WIDTH - 1)){  // grid_width - 1 is de laatste locatie op de breette van de gird
 						int full_line = current_row;
 						current_x = 0;
-						printf("line to clear current_x:%d, current_row:%d \n",current_x, current_row);
+//						printf("line to clear current_x:%d, current_row:%d \n",current_x, current_row);
 						return current_row;
 
 					}
 					else if(i == MATRIX_HEIGHT){
 						return 0;
-						printf("at the end current_x:%d, current_row:%d \n",current_x, current_row);
+//						printf("at the end current_x:%d, current_row:%d \n",current_x, current_row);
 					}
 					else{
 						current_x++;
-						printf("still searching current_x:%d, current_row:%d \n",current_x, current_row);
+//						printf("still searching current_x:%d, current_row:%d \n",current_x, current_row);
 					}
 
 					}
@@ -179,16 +177,24 @@ int test_full_line(struct Game *game){
 
 void game_func(struct Game* game){ ;
 
-
-	change_state_cell(game->grid,&game->current_block,empty);
-
-	int moved = move_block(&game->current_block, game->grid, down);
-	test_full_line(game);
-
 	clear_grid();
+	printf("clear_grid\n");
+//	set_hold_current_block(game);
+	set_current_block(game);
+//	load_from_hold(&game->current_block, &game->hold);
+	set_hold_matrix(&game->hold, 1); //dit zorgt voor crash
+	printf("set hold\n");
+	change_state_cell(game->grid,&game->current_block,empty);
+	printf("change state\n");
+	int moved = move_block(&game->current_block, game->grid, down);
+	printf("moved\n");
+	test_full_line(game);
+	printf("test_line\n");
 	change_state_cell(game->grid,&game->current_block,filled);
 	print_grid(game->grid);
+//	clear_grid();
 	draw_grid(game->grid);
+
 
 	//game->window_open = moved; // stop de loop als het blok niet beweegd (output lezen)
 

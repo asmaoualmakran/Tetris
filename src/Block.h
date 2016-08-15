@@ -52,13 +52,15 @@ int get_block_y_piv(struct Block x);
 enum Shape get_block_shape(struct Block x);
 enum Colour get_block_colour(struct Block x); //je kent de kleur van de cell
 int get_block_matrix(struct Block *x);
+int pick_random_block();
 void set_block_x_piv(struct Block *x, int c);
 void set_block_y_piv(struct Block *x, int c);
 void set_block_matrix(struct Block *x);
-struct Block init_block(enum Colour c, enum Shape s, int x, int y);
+void determine_start_pos(struct Block *x);
+struct Block init_block(enum Shape s);
 void rotate_block(struct Block *x);
 void set_correct_vals(struct Block *x);
-int* locate_piv_matric(struct Block *x);
+int* locate_piv_matrix(struct Block *x);
 int* set_direction(enum Direction d);
 int collision(struct Block *x, struct Cell ***grid, enum Direction d);
 int move_block(struct Block *, struct Cell ***grid, enum Direction d);
