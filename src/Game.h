@@ -29,7 +29,7 @@ struct Game{
 	bool paused;
 	bool window_open;
 	struct Block current_block;
-	//hold
+	struct Hold hold;
 };
 
 
@@ -45,6 +45,7 @@ void pause_game(struct Game *game);
 void resume_game(struct Game *game);
 void stop_game(struct Game *game);
 // geen restart game, hetzelfde als new_game
-
+void game_over(struct Game *game, enum Direction d);
+int test_full_line(struct Game *game);
 
 #endif /* GAME_H_ */

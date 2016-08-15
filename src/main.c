@@ -57,6 +57,7 @@ int main(void) {
 	 * reageert compleet niet
 	 */
 	struct Game game = new_game();
+	printf("main game piv_x: %d, piv_y: %d \n", game.current_block.x_piv, game.current_block.y_piv);
 	init_window();
 	run_window(&game);
 	  // close_window();

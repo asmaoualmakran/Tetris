@@ -51,6 +51,7 @@ void init_window(){
 void run_window(struct Game *game){ // pointer to game
 	game->window_open = true; // we open the window in function of the given game
 	SDL_Event event;
+	printf("run game x_piv: %d y_piv %d\n",game->current_block.x_piv,game->current_block.y_piv);
 	//bool game_running = game->window_open; why would you copy this? the guy works in function of the game and influences the game, no need to copy any values, read and write to the game
 	int previous = -1;
 	while(game->window_open){ // as long the window is open, the game is running.
@@ -90,76 +91,72 @@ void run_window(struct Game *game){ // pointer to game
 int *get_SDL_colour(struct Cell *cell){
 	int colour = cell->colour;
 	int color_code[3];
-	int color_code_r = color_code[0];
-	int color_code_g = color_code[1];
-	int color_code_b = color_code[2];
 	switch(colour){
 	case(red):
-		color_code_r = 225;
-		color_code_g = 0;
-		color_code_b = 0;
+		color_code[0] = 225;
+		color_code[1] = 0;
+		color_code[2] = 0;
 			break;
 
 	case(l_blue):
-		color_code_r = 0;
-		color_code_g = 247;
-		color_code_b = 255;
+		color_code[0] = 0;
+		color_code[1] = 247;
+		color_code[2] = 255;
 
 			break;
 
 	case(yellow):
-			color_code_r = 225;
-				color_code_g = 247;
-				color_code_b = 0;
+			color_code[0] = 225;
+				color_code[1] = 247;
+				color_code[2] = 0;
 			break;
 
 	case(green):
-		color_code_r = 0;
-		color_code_g = 225;
-		color_code_b = 0;
-
+		color_code[0] = 0;
+		color_code[2] = 225;
+		color_code[3] = 0;
 			break;
 
 	case(orange):
-			color_code_r = 225;
-			color_code_g = 188;
-			color_code_b = 0;
+			color_code[0] = 225;
+			color_code[2] = 188;
+			color_code[3] = 0;
 
 			break;
 
 	case(pink):
-			color_code_r = 225;
-				color_code_g = 0;
-				color_code_b = 162;
+			color_code[0] = 225;
+				color_code[1] = 0;
+				color_code[2] = 162;
 			break;
 
 	case(purple):
-			color_code_r = 196;
-				color_code_g = 0;
-				color_code_b = 255;
+			color_code[0] = 196;
+				color_code[1] = 0;
+				color_code[2] = 255;
 			break;
 
 	case(d_green):
-			color_code_r = 4;
-				color_code_g = 121;
-				color_code_b = 35;
+			color_code[0] = 4;
+				color_code[1] = 121;
+				color_code[2] = 35;
 			break;
 
 	case(d_red):
-			color_code_r = 121;
-				color_code_g = 4;
-				color_code_b = 35;
+			color_code[0] = 121;
+				color_code[1] = 4;
+				color_code[2] = 35;
 			break;
 
 	case(d_blue):
-			color_code_r = 3;
-				color_code_g = 3;
-				color_code_b = 250;
+			color_code[0] = 3;
+				color_code[1] = 3;
+				color_code[2] = 250;
 			break;
 	default:
-		color_code_r = 0;
-			color_code_g = 0;
-			color_code_b = 0;
+			color_code[0] = 0;
+			color_code[1] = 0;
+			color_code[2] = 0;
 	}
 	return color_code;
 }
@@ -172,18 +169,18 @@ void draw_grid(struct Cell ***grid){
 	for(i = 0; i < GRID_HEIGHT; i++){
 		for(j = 0; j < GRID_WIDTH; j++){
 		//	printf("(%d; %d)\n", i, j);
-			struct Cell *cell = get_grid_cell(grid, j,i );
+			struct Cell *cell = get_grid_cell(grid,j,i);
 			int *colour = get_SDL_colour(cell);
 			int colour_r = colour[0];
 			int colour_g = colour[1];
 			int colour_b = colour[2];
+		//	printf("r = %d, g = %d, b = %d \n",colour_r,colour_g,colour_b);
 			SDL_Rect rect;
 			rect.x = (j * CELL_WIDTH) ;
 			rect.y = i * CELL_HEIGHT;
 			rect.h = CELL_HEIGHT;
 			rect.w = CELL_WIDTH;
 			SDL_FillRect(window, &rect,SDL_MapRGB(window->format,colour_r,colour_g,colour_b));
-
 		}
 	}
 	SDL_Flip(window);
@@ -191,11 +188,12 @@ void draw_grid(struct Cell ***grid){
 
 void clear_grid(){
 	SDL_FillRect(window, NULL, 0x00000000);
-		//SDL_Flip(window);
+	SDL_Flip(window);
+
 };
 
 void close_window(){
-	SDL_FreeSurface(window);  //pointer naar de surfa{ce opruimen
+	SDL_FreeSurface(window);  //pointer naar de surface opruimen
 	SDL_Quit();				  // SDL afsluiten
 };
 

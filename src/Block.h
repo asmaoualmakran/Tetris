@@ -43,7 +43,7 @@ struct Block{
 	int y_piv;
 	enum Colour colour;
 	enum Shape shape;
-	int rotation_matrix[MATRIX_HEIGHT][MATRIX_WIDTH];
+	int rotation_matrix[MATRIX_WIDTH][MATRIX_HEIGHT];
 };
 
 
