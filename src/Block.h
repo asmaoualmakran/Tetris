@@ -11,10 +11,6 @@
 
 #include "Block_data.h"
 #include "Grid.h"
-#define START_X GRID_WIDTH/2
-#define START_Y 10 // hoogte afhankeljk van de hoogtte van de pivot in de rotatei matrix
-
-
 
 
 enum Shape{
@@ -39,6 +35,7 @@ enum Direction{
 };
 
 struct Block{
+	struct Cell cell;
 	int x_piv;
 	int y_piv;
 	enum Colour colour;
@@ -57,7 +54,7 @@ void set_block_x_piv(struct Block *x, int c);
 void set_block_y_piv(struct Block *x, int c);
 void set_block_matrix(struct Block *x);
 void determine_start_pos(struct Block *x);
-struct Block init_block(enum Shape s);
+struct Block init_block();
 void rotate_block(struct Block *x);
 void set_correct_vals(struct Block *x);
 int* locate_piv_matrix(struct Block *x);

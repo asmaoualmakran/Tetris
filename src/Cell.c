@@ -52,8 +52,3 @@ struct Cell init_cell(enum Colour c, enum State s, int x, int y){
 	cell.y_pos = y;
 	return cell;
 };
-
-// testing purposes, write to console
-void print_cell(struct Cell *cell){
-	printf("State: %d\nColour: %d\nCoordinates(x; y): (%d; %d)\n\n", cell->state, cell->colour, cell->x_pos, cell->y_pos);
-}

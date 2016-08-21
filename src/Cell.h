@@ -48,6 +48,5 @@ void set_cell_state(struct Cell *x, enum State s);
 void set_cell_colour(struct Cell *x, enum Colour s);
 void set_cell_x(struct Cell *pos, int x);
 void set_cell_y(struct Cell *pos, int y);
-void print_cell(struct Cell *cell);
 
 #endif /* BLOKS_H_ */

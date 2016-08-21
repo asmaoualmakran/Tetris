@@ -13,7 +13,7 @@
 #define MATRIX_WIDTH 5
 #define MATRIX_HEIGHT 5
 
-static int blocks [10] [5] [5] = {
+static int blocks [NUMB_SHAPES] [MATRIX_WIDTH] [MATRIX_HEIGHT] = {
 
 		// O
 		{{0, 0, 0, 0, 0},

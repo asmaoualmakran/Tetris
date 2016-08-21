@@ -9,9 +9,7 @@
 #include <stdlib.h>
 #include "High_score.h"
 
-/*
- * Apparte file, highscore heeft eigen functionaliteiten
- */
+
 
 struct High_score init_high_score() {           // als de file bestaat van de file lezen anders ga je de array met 0'en invullen
 	struct High_score H;
@@ -72,9 +70,6 @@ void save(struct High_score *x, const char *file_path){
 };
 
 void add(struct High_score *high_score, struct Score score) {
-// begin array is gesorteerd.
-// we hebben een waarde
-// we zoeken de locatie in de array waar de waarde moet zitten
 if (score.current_score > high_score->array[ARRAY_LENGTH - 1]) { // randgeval, als het getal kleiner is dan de kleinste waarde in de highscore: gewoon niet beginnen
 	int i = (ARRAY_LENGTH - 2);
 	while (i >= 0 && score.current_score > high_score->array[i]) {

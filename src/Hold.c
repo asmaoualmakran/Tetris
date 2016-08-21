@@ -11,9 +11,7 @@
 struct Hold init_hold(){
 	struct Hold hold;
 	int b = pick_random_block();
-//	printf("rand %d \n", i);
 	init_block(b);
-//	printf("%d\n", i);
 	set_hold_matrix(&hold, b);
 	return hold;
 };
@@ -30,9 +28,6 @@ void set_hold_matrix(struct Hold *hold,int x){
 			for(width = 0; width < MATRIX_WIDTH; width++){
 				hold->hold_matrix[width][height] = blocks[x][width][height];
 				hold->hold_block.rotation_matrix[width][height] = blocks[x][width][height];
-				/* zowel de hold matrix als de matrix van de block initialiseren
-				 * via de hold aan de block geraken.
-				 */
 			}
 		}
 };
@@ -46,10 +41,11 @@ struct Block *load_from_hold(struct Hold *hold, struct Block *block){
 			int j;
 			for(i = 0; i < MATRIX_HEIGHT; i++){
 				for(j = 0; j < MATRIX_WIDTH; j++){
-					block->rotation_matrix[i][j] = hold->hold_block.rotation_matrix[i][j];
+					block->rotation_matrix[j][i] = hold->hold_block.rotation_matrix[j][i];
 				}
 			}
-
+			print_block(block);
+			print_hold(hold);
 	return block;
 };
 

@@ -48,21 +48,23 @@ void set_block_matrix(struct Block *x){
 	int j;
 	for(i = 0; i < MATRIX_HEIGHT; i++){
 		for(j = 0; j < MATRIX_WIDTH; j++){
-			x->rotation_matrix[i][j] = blocks[shape][i][j];  // coordianten kloppen niet
+			x->rotation_matrix[i][j] = blocks[shape][i][j];
 		}
 	}
 };
 
 void determine_start_pos(struct Block *x){
-	int* loc_piv = locate_piv_matrix(x);    //waarom int* ? dat is wat de functie terug geeft een array met getallen
+	int* loc_piv = locate_piv_matrix(x);
 	x->x_piv = (GRID_WIDTH/2)-1;
-	x->y_piv = loc_piv[1];  // door de move wordt het blokje al direct een plaats lager gezet
+	x->y_piv = loc_piv[1];
 };
 
-struct Block init_block(enum Shape s){
+struct Block init_block(){
 	struct Block block;
-	block.colour = s;
-	block.shape = s;
+	int i = pick_random_block();
+	block.colour = i;
+	block.shape = i;
+	block.cell.colour = i;
 //	block.x_piv = x;
 //	block.y_piv = y;
 	block.rotation_matrix[0][0]=1;
@@ -159,7 +161,7 @@ void set_correct_vals(struct Block *x){
 };
 
 /*
- * de locatie van de pivot bepale in de rotatie matrix
+ * de locatie van de pivot bepalen in de rotatie matrix
  */
 int* locate_piv_matrix(struct Block *x){
 	static int coordinate[2];
@@ -169,7 +171,6 @@ int* locate_piv_matrix(struct Block *x){
 		for(width = 0; width < MATRIX_WIDTH; width++){
 			if(x->rotation_matrix[width][height] == 2){
 				coordinate[0] = width;
-		//		printf("val_i: %d \n", i);
 				coordinate[1] = height;
 			}
 		}
@@ -199,40 +200,30 @@ int* set_direction(enum Direction d){
 		dir[0] = 0;
 		dir[1] = 0;
 	}
-//	printf("dir: %d, %d\n", dir[0], dir[1]);
 	return &dir;
 };
-/*
- * heb al gecheckt of dat die 2 hulpfuncties mss problemen geven, maar die werken perfect op hun eigen
- * run het eens
- */
+
 int collision(struct Block *x, struct Cell ***grid, enum Direction d){
 
 
-	//printf("start_function\n");
+
 	int* direction = set_direction(d);
 	int dir_x = direction[0];
 	int dir_y = direction[1];
-	//printf("dir: %d, %d \n", dir_i, dir_j);
 
 	int piv_x = get_block_x_piv(*x);
 	int piv_y = get_block_y_piv(*x);
-	//printf("piv: %d, %d \n", piv_i, piv_j);
 
-//	int matrix = x->rotation_matrix;
 	int* loc_piv = locate_piv_matrix(x);
 	int loc_x = loc_piv[0];
 	int loc_y = loc_piv[1];
-	//printf("loc: %d, %d \n", loc_x, loc_y);
 
 	int ci;
 	int cj;
 
 	for(ci = 0; ci < MATRIX_HEIGHT; ci++){
 		for(cj = 0; cj < MATRIX_WIDTH; cj++){
-			//printf("ci, cj: %d,%d \n",ci,cj);
 			if(x->rotation_matrix[cj][ci] != 0){
-
 
 			/*
 			 * diff_i en diff_j worden gebruikt om de afstand tussen de pivot het element te berekenen
@@ -250,21 +241,19 @@ int collision(struct Block *x, struct Cell ***grid, enum Direction d){
      		int grid_loc_x = piv_x - diff_x;
 			int grid_loc_y = piv_y - diff_y;
 
-			if(grid_loc_y < GRID_HEIGHT && grid_loc_y >= 0 && grid_loc_x < GRID_WIDTH && grid_loc_x >= 0){ //hier loopt de test mis
-				printf("1: %d < %d && %d > 0 && %d < %d && %d > 0 => TRUE\n", grid_loc_y, GRID_HEIGHT, grid_loc_y, grid_loc_x, GRID_WIDTH, grid_loc_x);
+			if(grid_loc_y < GRID_HEIGHT && grid_loc_y >= 0 && grid_loc_x < GRID_WIDTH && grid_loc_x >= 0){
 				/*
 				 * de nieuwe locatie berekenen
 				 */
-			//	printf("grid_check: %d, %d \n",grid_loc_i,grid_loc_j);
+
 				int new_x = grid_loc_x + dir_x;
 				int new_y = grid_loc_y + dir_y;
-			//	printf("new(%d, %d)\n", new_i, new_j);
+
 				/*
 				 * testen of de nieuwe locatie binnen de grid ligt
 				 */
 
 				if(new_y < GRID_HEIGHT && new_y >= 0 && new_x < GRID_WIDTH && new_x >= 0){
-					printf("2: %d < %d && %d > 0 && %d < %d && %d > 0 => TRUE\n", new_y, GRID_HEIGHT, new_y, new_x, GRID_WIDTH, new_x);
 					/*
 					 * testen wat er in de matrix zit op de locatie en wat er in de grid
 					 * zit op dezelfde locatie
@@ -273,10 +262,8 @@ int collision(struct Block *x, struct Cell ***grid, enum Direction d){
 					struct Cell* cell = get_grid_cell(grid, new_x, new_y);
 					printf("cell state\n");
 					int cell_state = cell->state;
-					//int cell_state = grid[new_x][new_y]->state ;
 					printf("done\n");
 					if(cell_state != empty && x->rotation_matrix[cj][ci] != 0){
-						//printf("collsion: cell not free\n");
 						return 1;
 					}
 
@@ -285,8 +272,7 @@ int collision(struct Block *x, struct Cell ***grid, enum Direction d){
 				/*
 				 * new_i, new_j vallen buiten de grenzen van de grid
 				 */
-				else {//printf("2: %d < %d && %d > 0 && %d < %d && %d > 0 => FALSE\t", new_y, GRID_HEIGHT, new_y, new_x, GRID_WIDTH, new_x);
-				printf("Collision: Out of grid bounds\n");
+				else {
 				return 1;}
 
 			}
@@ -294,8 +280,6 @@ int collision(struct Block *x, struct Cell ***grid, enum Direction d){
 			 * grid_loc_i en grid_loc_j vallen buiten de grid
 			 */
 			else {
-				printf("1: %d < %d && %d > 0 && %d < %d && %d > 0 => FALSE\t", grid_loc_y, GRID_HEIGHT, grid_loc_y, grid_loc_x, GRID_WIDTH, grid_loc_x);
-				printf("Collision: Other out of something bounds I guess\n");
 				return 1;
 			}
 			}
@@ -317,11 +301,8 @@ int move_block(struct Block *x, struct Cell ***grid, enum Direction d){
 		x->x_piv = x_piv + dir_x;
 		x->y_piv = y_piv + dir_y;
 
-//		printf("new_loc: %d,%d\n", x_piv,y_piv);
 		return 1;
 		}
-
-//	printf("block can't be moved\n");
 
 	return 0;
 };
