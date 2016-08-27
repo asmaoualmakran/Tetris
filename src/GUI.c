@@ -36,7 +36,7 @@ void run_window(struct Game *game){
 	SDL_Event event;
 	int previous = -1;
 	while(game->window_open){ // as long the window is open, the game is running.
-		SDL_PollEvent(&event);
+	//	SDL_PollEvent(&event);  geeft de bug waarbij het spel traag reageerd 
 
 		if (event.type == SDL_QUIT){
 			game->window_open = false;
